@@ -29,27 +29,28 @@ public class PlayerMovement : MonoBehaviour
     {
         Ray groundRay = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
-        bool grounded = Physics.Raycast(groundRay, out hit, 0.34f);
+        bool grounded = Physics.Raycast(groundRay, out hit, 2);
+        Debug.Log(hit.distance);
 
         if (grounded)
         {
             Debug.Log(hit.collider.tag);
-            switch (hit.collider.tag)
+            switch (hit.collider.tag.ToLower())
             {
                 case "path":
-                    speed = 10;
+                    speed = 12;
                     break;
                 case "grass":
-                    speed = 7;
+                    speed = 9;
                     break;
                 case "water":
-                    speed = 5;
+                    speed = 7;
                     break;
                 case "sand":
-                    speed = 3;
+                    speed = 5;
                     break;
                 default:
-                    speed = 10;
+                    speed = 5;
                     break;
             }
         }
