@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
     public float speed = 10;
-    public float jumpSpeed = 10;
+    public float jumpSpeed = 150;
 
     private float horizontalInput;
     private float verticalInput;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
             movementVector += Vector3.up * jumpSpeed;
             jumpPressed = false;
         }
-        rb.AddForce(movementVector);
+        rb.AddRelativeForce(movementVector);
     }
 
     // Update is called once per frame
