@@ -11,13 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     private bool jumpPressed;
 
-    private Mesh mesh;
-
-    void Start()
-    {
-        mesh = GetComponent<MeshFilter>().mesh;
-    }
-
     private void FixedUpdate()
     {
         Vector3 forwardMovement = verticalInput * Vector3.forward;
