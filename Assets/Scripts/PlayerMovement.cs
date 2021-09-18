@@ -43,7 +43,17 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(hit.collider.tag);
             switch (hit.collider.tag)
             {
+                case "path":
+                    speed = 10;
+                    break;
+                case "grass":
+                    speed = 7;
+                    break;
+                case "water":
+                    speed = 5;
+                    break;
                 case "sand":
+                    speed = 3;
                     break;
                 default:
                     speed = 10;
