@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,7 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     private bool jumpPressed;
 
-    // Start is called before the first frame update
+    private Mesh mesh;
+
+    void Start()
+    {
+        mesh = GetComponent<MeshFilter>().mesh;
+    }
+
     private void FixedUpdate()
     {
         Vector3 forwardMovement = verticalInput * Vector3.forward;
@@ -27,12 +34,37 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        Ray groundRay = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        bool grounded = Physics.Raycast(groundRay, out hit, 0.34f);
+
+        if (grounded)
+        {
+            Debug.Log(hit.collider.tag);
+            switch (hit.collider.tag)
+            {
+                case "sand":
+                    break;
+                default:
+                    speed = 10;
+                    break;
+            }
+        }
+
         // Keyboard inputs
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             jumpPressed = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Platform")
+        {
+            transform.parent = other.transform;
         }
     }
 }
